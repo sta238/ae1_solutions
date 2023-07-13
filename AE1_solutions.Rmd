@@ -130,7 +130,7 @@ assignments_long %>%
   theme_bw() +
   scale_x_continuous(breaks=seq(0,1,0.1)) +
   facet_wrap(vars(test)) +
-  geom_bar(aes(y = after_stat(prop)), width=0.1, alpha = 0.2, show.legend = FALSE)
+  geom_bar(aes(y = after_stat(count / max(count))), width=0.1, alpha = 0.2, show.legend = FALSE)
 ```
 Some sections of this code may be new to you, particularly the last 3 lines do. Try looking them up and playing around with different values to see what happens. It is particularly useful to know what `aes(y = after_stat(prop))` does. 
 
@@ -156,10 +156,13 @@ Note: This should display only one plot in the end (with both the histogram and 
 The supplemental text shows another method of plotting KDEs that doesn't use `ggplot`. Follow that method here to plot the KDE (no historgram this time):
 ```{r base_density, exercise=TRUE}
 dens <- density(gradebook$exam)
-tibble(x = dens$x,y = dens$y) %>%
-  ggplot(aes(x = x,y = y)) +
-  theme_classic() + 
-  geom_line() 
+plot(dens)
+
+# # if you want to use ggplot, but not geom_histogram 
+# tibble(x = dens$x,y = dens$y) %>%
+#   ggplot(aes(x = x,y = y)) +
+#   theme_classic() +
+#   geom_line()
 ```
 
 
